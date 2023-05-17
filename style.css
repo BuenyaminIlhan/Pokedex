@@ -1,13 +1,30 @@
 html {
-    scroll-behavior:smooth ;
+    scroll-behavior: smooth;
 }
 
 body {
     margin: 0;
 }
 
-#content {
+header {
+    display: flex;
+    justify-content: center;
+    padding: 32px;
+    align-items: center;
+    gap: 16px;
+    background-color: lightgray;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+}
 
+header img {
+    height: 70px;
+}
+
+#content {
+    background-color: black;
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
@@ -32,15 +49,38 @@ body {
 .card {
     transition: transform 0.2s ease-in-out;
     cursor: pointer;
-  }
-  .card:hover {
+}
+
+.card:hover {
     background-color: lightgray;
     transform: scale(1.08);
-  }
-  
-  .btn-container {
+}
+
+.btn-container {
     display: flex;
     justify-content: center;
     padding: 20px;
-  }
-  
+    background-color: black;
+}
+
+.big-img-container {
+    background-color: rgba(211, 211, 211, 0.719);
+    position: absolute;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+    display: none;
+    top: 0;
+}
+.big-img-container img {
+    height: 300px;
+    z-index: 99;
+}
+
+.d-add{
+    display: flex;
+}
