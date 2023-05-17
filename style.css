@@ -4,7 +4,6 @@ html {
 
 body {
     margin: 0;
-
 }
 
 #content {
@@ -14,8 +13,34 @@ body {
     gap: 16px;
     justify-content: center;
     padding: 20px;
+    color: white;
 }
 
 .pokemon-img {
     width: 110px;
 }
+
+.id {
+    padding: 16px;
+}
+
+.img-container {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+  }
+  .card:hover {
+    background-color: lightgray;
+    transform: scale(1.08);
+  }
+  
+  .btn-container {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  
