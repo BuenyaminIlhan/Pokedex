@@ -1,0 +1,21 @@
+html {
+    scroll-behavior:smooth ;
+}
+
+body {
+    margin: 0;
+
+}
+
+#content {
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.pokemon-img {
+    width: 110px;
+}
