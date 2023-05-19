@@ -140,15 +140,17 @@ header img {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 300px;
+    width: 500px;
     padding-bottom: 16px;
+    border-top-right-radius:25px;
+    border-top-left-radius:25px;
 }
 
 .poke-stats {
     background-color: white;
     color: black;
     text-align: center;
-    height: 200px;
+    height: 350px;
     border-radius: 25px;
     z-index: 10;
     margin-top: -20px;

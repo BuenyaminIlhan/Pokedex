@@ -26,7 +26,7 @@ const CONFIG_CHART_OPTIONS = {
 
 //let chartInstance = null;
 
-function renderChart(responsAsJson,index) {
+function renderChart(responsAsJson,index,) {
     // if (chartInstance) {
     //     chartInstance.destroy();
     // }
@@ -38,7 +38,7 @@ function renderChart(responsAsJson,index) {
     const speed = responsAsJson['stats'][5]['stat']['name'];
     const hpStat = responsAsJson['stats'][0]['base_stat'];
 
-    let ctx = document.getElementById(`poke-stats${index}`);
+    let ctx = document.getElementById(`poke-stata${index}`);
 
    new Chart(ctx, {
         type: 'bar',

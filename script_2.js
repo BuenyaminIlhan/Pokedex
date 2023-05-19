@@ -74,7 +74,7 @@ let colors = {
 };
 
 
-let end = 30;                                              // bei Änderung muss in den functionen loadPokemon und getApi angepasst werden
+let end = 2;                                              // bei Änderung muss in den functionen loadPokemon und getApi angepasst werden
 
 function init() {
   getApi();
@@ -88,7 +88,7 @@ function loadPokemon() {
 
 async function getApi() {
 
-  for (let i = end - 29; i <= end; i++) {                   // so wird immer sicher gestellt das i = end + 1 hat, nachdem sich i erhöht wird. 
+  for (let i = end - 1; i <= end; i++) {                   // so wird immer sicher gestellt das i = end + 1 hat, nachdem sich i erhöht wird. 
     let url = `https://pokeapi.co/api/v2/pokemon/${i}/`;
     await response(url, i);
   }
@@ -123,10 +123,9 @@ function renderPokemon(responsAsJson, index) {
 
     content.appendChild(pokemonElement);                                      // wird als kind Element zum div content hinzugefügt. 
     generateStyle(index, type)
-    renderChart(responsAsJson,index);
   }
 }
-
+/*
 function generateHTML(index, sprite, name, type, type2,responsAsJson) {
   return `
      <div onclick="dNone(${index})" id="card${index}" class="card" style="width: 15rem;">
@@ -143,6 +142,31 @@ function generateHTML(index, sprite, name, type, type2,responsAsJson) {
      </div>
     ${showPokeCard(index, sprite, name, type, type2,responsAsJson)}
     `;
+}
+*/
+
+function generateHTML(index, sprite, name, type, type2, responsAsJson) {
+  const cardId = `card${index}`;
+  const cardTextId = `card-text${index}`;
+  const chartId = `poke-stats${index}`;
+
+  renderChart(responsAsJson, index, chartId);
+
+  return `
+    <div onclick="dNone(${index})" id="${cardId}" class="card" style="width: 15rem;">
+      <span class="id"><b># ${index}</b></span>
+      <h5 class="card-title">${name}</h5>
+      <div class="img-container">
+        <div class="card-body">
+          <p id="${cardTextId}" class="card-text">${type}</p>
+          ${type2}
+        </div>
+        <img class="pokemon-img" src="${sprite}" class="card-img-top" alt="...">
+      </div>
+    </div>
+    ${showPokeCard(index, sprite, name, type, type2, chartId)}
+    ${renderChart(responsAsJson,index)}
+  `;
 }
 
 function generateStyle(index, type) {
@@ -163,7 +187,7 @@ function showPokeCard(index, sprite, name, type, type2,responsAsJson) {
           </div>
           <div class="poke-stats">
             <h5>Pokemon Stats</h5>
-            <canvas id="poke-stats${index}"></canvas>
+            <canvas id="poke-stats${index}">}</canvas>
           </div>
       </div>
      
