@@ -9,9 +9,10 @@
     <title>Pokedex</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="chart.js"></script>
-    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="chart.js" defer></script>
+    <script src="colors.js" defer></script>
+    <script src="script.js" defer></script>
 
 
 </head>
@@ -22,13 +23,15 @@
         <h1>Pokedex</h1>
     </header>
 
+    <input id="search" type="text" onchange="searchPokemon()">
+    <button class="btn btn-secondary">Suchen</button>
+    <div class="search-result" id="search-result"></div>
 
     <div id="content"></div>
 
     <div class="btn-container">
 
-        <button href="#load-more" type="button" class="btn btn-secondary" a onclick="loadPokemon()">Mehr Pokémon
-            laden</button>
+        <button type="button" class="btn btn-secondary" a onclick="loadPokemon()">Mehr Pokémonladen</button>
 
     </div>
     <footer id="load-more">
