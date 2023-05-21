@@ -23,8 +23,9 @@
         <h1>Pokedex</h1>
     </header>
 
-    <input id="search" type="text" onchange="searchPokemon()">
-    <button class="btn btn-secondary">Suchen</button>
+    <input id="search" required type="text">
+    <button class="btn btn-secondary" onclick="createSearchArray()">Suchen</button>
+    <h3 id="found-info"></h3>
     <div class="search-result" id="search-result"></div>
 
     <div id="content"></div>

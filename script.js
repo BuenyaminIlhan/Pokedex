@@ -21,7 +21,6 @@ async function getApi() {
 async function response(url, index) {
   let response = await fetch(url);
   let responsAsJson = await response.json();
-
   renderPokemon(responsAsJson, index, url);
 }
 
@@ -50,6 +49,7 @@ function renderPokemon(responsAsJson, index, url) {
 
 function generateHTML(index, sprite, name, type, type2, responsAsJson, url) {
   return `
+  
      <div onclick="dNone(${index})" id="card${index}" class="card" style="width: 15rem;">
           <span class="id"><b># ${index}</b></span>
           <h5 class="card-title">${name}</h5>
@@ -89,27 +89,52 @@ function showSmall(event, index) {
 
 //--------------------------------------Search----------------------------------------------------- 
 
-async function searchPokemon() {
-  let pokemonApi = `https:pokeapi.co/api/v2/pokemon?limit=100000&offset=0`;
-  let search = document.getElementById('search').value;
-  search = search.toLowerCase();
-  console.log(search)
-  let searchResult = document.getElementById('search-result');
-  searchResult.innerHTML = `<h1>Hello</h1>`;
-  let response = await fetch(pokemonApi);
-  let responsAsJson = await response.json();
-  let responsAsJsonResult = responsAsJson['results']
+async function createSearchArray() {
+  let searchResults = document.getElementById('search-result');
+  searchResults.innerHTML = '';
+let foundPokemons = [];                                           //gefundene werden hier gelagert um doppelt zu vermeiden
 
-  console.log(responsAsJson)
-
-  for (let i = 0; i < responsAsJsonResult.length; i++) {
-    let name = responsAsJsonResult[i]['name'];
-  search.innerHTML = '';
-    if (name.toLowerCase().includes(search)) {
-      searchResult.innerHTML += generateHTML(i) + name +' '
-    }
+  for (let i = 1; i < 1011; i++) {
+    let url = `https://pokeapi.co/api/v2/pokemon/${i}/`;
+    let response = await fetch(url);
+    response = await response.json();
+    searchPokemon(response,searchResults,foundPokemons,i);
   }
 }
+
+
+
+function searchPokemon(response,searchResults,foundPokemons,index){
+  let name = response['name'];
+  let picture = response['sprites']['front_shiny'];
+  let type = response['types'][0]['type']['name'];
+
+  let search = document.getElementById('search').value;
+  search = search.toLowerCase();
+
+  if (name.toLowerCase().includes(search) && !foundPokemons.includes(name)) {
+    foundPokemons.push(name);
+
+document.getElementById('found-info').innerHTML = 'gefunden'
+
+    searchResults.innerHTML += `
+    <div onclick="dNone(${index})" id="card${index}" class="card" style="width: 15rem;">
+    <span class="id"><b># ${index}</b></span>
+    <h5 class="card-title">${name}</h5>
+  <div class="img-container">
+  <div class="card-body">
+  <p id="card-text${index}" class="card-text">${type}</p>
+
+</div>
+    <img class="pokemon-img" src="${picture}" class="card-img-top" alt="...">
+  </div>  
+
+</div>
+`; 
+generateStyle(index, type)
+  }
+}
+
 
 //----------------------------------------Pokemon Galerie-----------------------------------------------
 
@@ -118,31 +143,31 @@ function showPokeCard(index, sprite, name, type, type2, responsAsJson, url) {
   let secondColor = colors[type] ? colors[type]['secondColor'] : '';
 
   return `
-    <div onclick="showSmall(event, ${index})" id="big-img${index}" class="big-img-container">
-      <img class="arrow-left" onclick="previousPokemon(${index})" src="img/arrow-left.png">
-      <div>
-        <div class="poke-card" style="background-color:${primaryColor}">
-          <h5 class="headline-pokecard">${name}</h5>
-          <p class="poke-card-text" style="background-color:${secondColor}">${type}</p>
-          <div class="type2-pokecard" >${type2}</div>
-          <img id="poke-card-img${index}" class="pokemon-img-show" src="${sprite}" alt="">
+      <div onclick="showSmall(event, ${index})" id="big-img${index}" class="big-img-container">
+        <img class="arrow-left" onclick="previousPokemon(${index})" src="img/arrow-left.png">
+        <div>
+          <div class="poke-card" style="background-color:${primaryColor}">
+            <h5 class="headline-pokecard">${name}</h5>
+            <p class="poke-card-text" style="background-color:${secondColor}">${type}</p>
+            <div class="type2-pokecard">${type2}</div>
+            <img id="poke-card-img${index}" class="pokemon-img-show" src="${sprite}" alt="">
+          </div>
+          <div class="poke-stats">
+            <h5>Pokemon Stats</h5>
+            <canvas id="poke-stats${index}"></canvas>
+          </div>
         </div>
-        <div class="poke-stats">
-          <h5>Pokemon Stats</h5>
-          <canvas id="poke-stats${index}"></canvas>
-        </div>
-      </div>
-      <img class="arrow-right" onclick="nextPokemon('${index}','${sprite}','${name}','${type}','','${responsAsJson}','${url}')" src="img/arrow-right.png">
-    </div>`;
+        <img class="arrow-right" onclick="nextPokemon('${index}')" src="img/arrow-right.png">
+      </div>`;
 }
 
 function nextPokemon(index) {
   if (index < end) {
-    dNoneRemove(index)
-    index++
+    dNoneRemove(index);
+    index++;
     dNone(index);
   } else {
-    dNoneRemove(index)
+    dNoneRemove(index);
     index = 1;
     dNone(index);
   }
@@ -150,11 +175,11 @@ function nextPokemon(index) {
 
 function previousPokemon(index) {
   if (index > 1) {
-    dNoneRemove(index)
-    index--
+    dNoneRemove(index);
+    index--;
     dNone(index);
   } else {
-    dNoneRemove(index)
+    dNoneRemove(index);
     index = end;
     dNone(index);
   }

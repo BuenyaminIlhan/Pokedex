@@ -144,8 +144,8 @@ header img {
     width: 500px;
     height: 370px;
     padding-bottom: 16px;
-    border-top-right-radius:25px;
-    border-top-left-radius:25px;
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
 }
 
 .padding {
@@ -176,6 +176,15 @@ header img {
 }
 
 .search-result {
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-left: 50px;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+#found-info {
     color: white;
 }
 
