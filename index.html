@@ -21,13 +21,15 @@
     <header>
         <img src="img/ball.png" alt="">
         <h1>Pokedex</h1>
+
+        <input id="search" required type="text" onfocus="this.value = '';" >
+        <button id="search-button" type="submit" class="btn btn-secondary" onclick="createSearchArray()">Suchen</button>
     </header>
 
-    <input id="search" required type="text">
-    <button class="btn btn-secondary" onclick="createSearchArray()">Suchen</button>
+
     <h3 id="found-info"></h3>
     <div class="search-result" id="search-result"></div>
-
+    <h2 class="sub-headline">Pokemon-Übersicht</h2>
     <div id="content"></div>
 
     <div class="btn-container">
