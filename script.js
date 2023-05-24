@@ -1,5 +1,6 @@
 let end = 30;                                              // bei Änderung muss in den functionen loadPokemon und getApi angepasst werden
 let currentIndex = 1;
+let foundPokemons = [];  
 
 function init() {
   getApi();
@@ -90,7 +91,6 @@ function showSmall(event, index) {
   div.classList.remove('d-add');
 }
 
-
 //----------------------------------------Pokemon Galerie-----------------------------------------------
 
 function showPokeCard(index, sprite2, name, type, type2, responsAsJson) {
@@ -140,13 +140,14 @@ function previousPokemon(index) {
   }
 }
 
-
 //--------------------------------------Search----------------------------------------------------- 
 
 async function createSearchArray() {
+  window.scrollTo({
+    top: 0,
+  });
   let searchResults = document.getElementById('search-result');
   searchResults.innerHTML = '';
-  let foundPokemons = [];                                           //gefundene werden hier gelagert um doppelt zu vermeiden
 
   for (let i = 1; i < 1011; i++) {
     let url = `https://pokeapi.co/api/v2/pokemon/${i}/`;
@@ -158,33 +159,42 @@ async function createSearchArray() {
 
 
 
+
 function searchPokemon(response, searchResults, foundPokemons, index) {
+  let foundInfo = document.getElementById('found-info').innerHTML;
   let name = response['name'];
   let picture = response['sprites']['front_shiny'];
   let type = response['types'][0]['type']['name'];
-
   let search = document.getElementById('search').value;
   search = search.toLowerCase();
+  foundInfo.innerHTML = '';
 
-  if (name.toLowerCase().includes(search) && !foundPokemons.includes(name)) {
+  if (name.toLowerCase().includes(search) && !foundPokemons.includes(name) && search != '') {
+    foundInfo.innerHTML = '';
     foundPokemons.push(name);
     if (search.length > 0) {
-      document.getElementById('found-info').innerHTML = `Es gab ${foundPokemons.length} treffer`
-    }
-    searchResults.innerHTML += `
-    <div onclick="dNone(${index})" id="card${index}" class="card" style="width: 15rem;">
-    <span class="id"><b># ${index}</b></span>
-    <h5 class="card-title">${name}</h5>
-  <div class="img-container">
-  <div class="card-body">
-  <p id="card-text${index}" class="card-text">${type}</p>
+      foundInfo.innerHTML = `Es gab ${foundPokemons.length} treffer`
+    } 
+
+    searchResults.innerHTML += generateSearchResultHTML(index, name, type, picture);
+    generateStyle(index, type)
+  }
+  
+
+}
+
+function generateSearchResultHTML(index, name, type, picture) {
+  return `
+  <div onclick="dNone(${index})" id="card${index}" class="card" style="width: 15rem;">
+  <span class="id"><b># ${index}</b></span>
+  <h5 class="card-title">${name}</h5>
+<div class="img-container">
+<div class="card-body">
+<p id="card-text${index}" class="card-text">${type}</p>
 </div>
-    <img class="pokemon-img" src="${picture}" class="card-img-top" alt="...">
-  </div>  
+  <img class="pokemon-img" src="${picture}" class="card-img-top" alt="...">
+</div>  
 
 </div>
 `;
-    generateStyle(index, type)
-  }
-  console.log(foundPokemons.length)
 }

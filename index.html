@@ -19,17 +19,20 @@
 
 <body onload="init()">
     <header>
-        <img src="img/ball.png" alt="">
-        <h1>Pokedex</h1>
-
-        <input id="search" required type="text" onfocus="this.value = '';" >
-        <button id="search-button" type="submit" class="btn btn-secondary" onclick="createSearchArray()">Suchen</button>
+        <div class="logo-container">
+            <img src="img/ball.png" alt="">
+            <h1>Pokedex</h1>
+        </div>
+        <div>
+        <input id="search" required type="text" onfocus="this.value = '';">
+        <button id="search-button" type="submit" class="btn btn-secondary" href="#card1" onclick="createSearchArray()">Suchen</button>
+    </div>
     </header>
 
 
-    <h3 id="found-info"></h3>
     <div class="search-result" id="search-result"></div>
-    <h2 class="sub-headline">Pokemon-Übersicht</h2>
+    <h3 id="found-info"></h3>
+    <h2 id="sub-headline" class="sub-headline">Pokemon-Übersicht</h2>
     <div id="content"></div>
 
     <div class="btn-container">
