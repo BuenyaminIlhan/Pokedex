@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/pokeball.png" type="image/x-icon">
+    <title>Pokedex</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="chart.js" defer></script>
+    <script src="colors.js" defer></script>
+    <script src="script.js" defer></script>
+
+
+</head>
+
+<body onload="init()">
+    <header>
+        <img src="img/ball.png" alt="">
+        <h1>Pokedex</h1>
+
+        <input id="search" required type="text" onfocus="this.value = '';" >
+        <button id="search-button" type="submit" class="btn btn-secondary" onclick="createSearchArray()">Suchen</button>
+    </header>
+
+
+    <h3 id="found-info"></h3>
+    <div class="search-result" id="search-result"></div>
+    <h2 class="sub-headline">Pokemon-Übersicht</h2>
+    <div id="content"></div>
+
+    <div class="btn-container">
+
+        <button type="button" class="btn btn-secondary" a onclick="loadPokemon()">Mehr Pokémonladen</button>
+
+    </div>
+    <footer id="load-more">
+        Pokedex
+    </footer>
+</body>
+
+</html>
